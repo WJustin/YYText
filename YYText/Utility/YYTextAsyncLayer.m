@@ -110,8 +110,12 @@ static dispatch_queue_t YYTextAsyncLayerGetReleaseQueue() {
 }
 
 - (void)display {
-    super.contents = super.contents;
-    [self _displayAsync:_displaysAsynchronously];
+    if (self.bounds.size.width <= 0 || self.bounds.size.height <= 0) {
+        self.contents = nil;
+    } else {
+        super.contents = super.contents;
+        [self _displayAsync:_displaysAsynchronously];
+    }
 }
 
 #pragma mark - Private
